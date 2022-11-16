@@ -11,6 +11,12 @@
 - is a mid-level programming language
   - High Level = Python
   - Low Level = Assembly
+- created by Bjarne Stroustrup, Bell Labs
+- Originally coined "C with Classes", c++ 1983
+- supports object-oriented and generics
+- maintains the efficiency of C
+- Very popular in video game development
+- influenced development of c# and java
 
 #### 👍 Advantages
 
@@ -29,6 +35,16 @@
 - syntax can be a little confusing
 - can be hard to read others' code due to custom definitons / op overloading
 - compiler/linker errors hard to interpret
+
+#### Versions
+
+- First appeared in 1985
+- C++98 - First Standardized Version
+- C++11 - many new features / QOL improvments
+- C++14, C++17, C++20
+- C++17 is current standard
+
+> You can set the version with the compiler flag `-std=C++17`
 
 ## 💻 Commands
 
