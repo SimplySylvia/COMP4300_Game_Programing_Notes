@@ -15,3 +15,9 @@ To run the compiled file.
 ```bash
 ./a.out
 ```
+
+To name a file you use the `-o` flag for output
+
+```bash
+g++ -std=c++17 file_name.cpp -o output_name
+```
