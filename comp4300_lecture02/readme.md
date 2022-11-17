@@ -55,6 +55,105 @@
   - Java, C also statically typed
   - variable types defined at compile time
 
+#### Primitive Types
+
+| Name        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| char        | Character or eight bit integer                         |
+| short       | sixteen bit integer                                    |
+| long        | thirty-two bit integer                                 |
+| int         | system dependent, likely four bytes or thirty-two bits |
+| float       | floating point number                                  |
+| double      | double precision floating point                        |
+| long double | long double precision floating point                   |
+| bool        | boolean value: false -> 0, true -> 1                   |
+
+### Arithmetic Operators
+
+| Name           | Syntax  |
+| -------------- | ------- |
+| additon        | `a + b` |
+| subtraction    | `a - b` |
+| unary plus     | `+a`    |
+| unary minus    | `-a`    |
+| multiplication | `a * b` |
+| division       | `a / b` |
+| modulo         | `a % b` |
+| pre-increment  | `++a`   |
+| post-increment | `a++`   |
+| pre-decrement  | `--a`   |
+| post-decrement | `a--`   |
+
+### Bitwise Operators
+
+| Name                   | Syntax   |
+| ---------------------- | -------- | 
+| NOT                    | `~a`     |
+| AND                    | `a & b`  |
+| OR                     | `a | b`  |
+| XOR                    | `a ^ b`  |
+| arithmetic left shift  | `a << b` |
+| arithmetic right shift | `a >> b` |
+
+### Functions
+- very similar to Java
+- can have same function name with different input arguments
+- can not have functions with the same name and args that differ only in return type
+
+
+```c++
+returnType funcName(args) {
+   // logic goes here 
+}
+```
+
+### Classes
+- anything you do not provid scope for is default private
+
+#### Class Declaration
+```c++
+class ClassName 
+{
+  // syntax m_ means private variable
+  int m_x = 0; // private
+  int m_y = 0; // private
+  public:
+    ClassName(int x, int y);
+    int getX();
+    int getY();  
+};
+```
+
+#### Class Constructor (inefficent)
+- this is due to assigning memory and then updating to hold value
+```c++
+ClassName::ClassName(int x, int y)
+{
+  m_x = x;
+  m_y = y;
+}
+```
+
+#### Class Constructor (efficient) aka member initilizer lists
+- this is better because assigns with value
+- default value not used
+```c++
+ClassName::ClassName(int x, int y)
+  : m_x(x) 
+  , m_y(y)
+{
+}
+```
+
+#### Class Destructor 
+- clean up when destroyed 
+```c++
+ClassName::~ClassName()
+{
+  // clean up here
+}
+```
+
 ### First Program Breakdown
 
 ```c++
