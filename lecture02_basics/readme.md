@@ -87,32 +87,34 @@
 ### Bitwise Operators
 
 | Name                   | Syntax   |
-| ---------------------- | -------- | 
+| ---------------------- | -------- | --- |
 | NOT                    | `~a`     |
 | AND                    | `a & b`  |
-| OR                     | `a | b`  |
+| OR                     | `a       | b`  |
 | XOR                    | `a ^ b`  |
 | arithmetic left shift  | `a << b` |
 | arithmetic right shift | `a >> b` |
 
 ### Functions
+
 - very similar to Java
 - can have same function name with different input arguments
 - can not have functions with the same name and args that differ only in return type
 
-
 ```c++
 returnType funcName(args) {
-   // logic goes here 
+   // logic goes here
 }
 ```
 
 ### Classes
+
 - anything you do not provid scope for is default private
 
 #### Class Declaration
+
 ```c++
-class ClassName 
+class ClassName
 {
   // syntax m_ means private variable
   int m_x = 0; // private
@@ -120,12 +122,14 @@ class ClassName
   public:
     ClassName(int x, int y);
     int getX();
-    int getY();  
+    int getY();
 };
 ```
 
 #### Class Constructor (inefficent)
+
 - this is due to assigning memory and then updating to hold value
+
 ```c++
 ClassName::ClassName(int x, int y)
 {
@@ -135,18 +139,22 @@ ClassName::ClassName(int x, int y)
 ```
 
 #### Class Constructor (efficient) aka member initilizer lists
+
 - this is better because assigns with value
 - default value not used
+
 ```c++
 ClassName::ClassName(int x, int y)
-  : m_x(x) 
+  : m_x(x)
   , m_y(y)
 {
 }
 ```
 
-#### Class Destructor 
-- clean up when destroyed 
+#### Class Destructor
+
+- clean up when destroyed
+
 ```c++
 ClassName::~ClassName()
 {
@@ -250,6 +258,17 @@ dalton::ivar
   - `std::string`
   - `std::vector`
   - `std::map`
+
+> 📝 NOTE
+>
+> When it comes to namespaces you can access a namespace everywhere with `using namespace`
+>
+> ```c++
+> using namespace std;
+> string name = "Dalton"
+> ```
+>
+> That being said, declaring the namespace each time is more verbose and recommended.
 
 ### Source Code Breakdown
 
