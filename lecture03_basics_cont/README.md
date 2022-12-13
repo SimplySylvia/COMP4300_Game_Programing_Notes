@@ -75,7 +75,7 @@ int main()
 - calls C function _malloc_ under the hood
 - os finds a contiguous chunk of memory and returns a pointer to it
   - this is very complicated and expensive
-  - use this only when you have to
+  - **use this only when you have to**
 - you then access the memory via pointer
 
 ### Stack/Heap example
@@ -125,3 +125,49 @@ int main()
   delete p; // line that removes the heap
 }
 ```
+
+> 📝
+> Stack = Fast, Limited
+> Heap = Slow, Larger
+
+## Pointers
+
+- Same as pointers in C
+- A pointer stores a memory address with an associated type
+- Modifying the pointer variable modifies the address it **points** to
+- To modify the value of the data in the memory that it points to, we **dereference**
+- "Raw" pointers can be very unsafe
+
+```c++
+int main()
+{
+  int i = 6; // local int var
+  int * p; // pointer to int
+  p = &i; // & = address of
+  *p = 7; // * = dereference
+}
+```
+
+### Why use pointers?
+
+- Must use pointer for inheritance
+  - `Base * ptr = new Derived();`
+- Pass by value vs by reference
+  - Modifying variable passed into function
+- Pointing to large data
+  - Large data cant live on the stack
+
+## References
+
+- References are essentially `safe pointers`
+- instead of \*, use &
+- MUST point to existing data, and can never point to nothing/nullptr
+  - this makes them almost always safe
+- Prefer using reference to pointers whenever possible
+
+## Pass by value / reference
+
+- by default c++ pass variables by value
+- PBV has a cost for copying large data
+- also may want to modify the value passed
+- we can use pointers to accomplish PBR but ideally we want to use references
