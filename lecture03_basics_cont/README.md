@@ -171,3 +171,157 @@ int main()
 - PBV has a cost for copying large data
 - also may want to modify the value passed
 - we can use pointers to accomplish PBR but ideally we want to use references
+
+### Pass by value
+
+> This will not update the variable i as it passes a copy and not the memory location
+
+```c++
+void tennify(int a) { a = 10; }
+
+int main()
+{
+  int i = 12;
+  tennify(i);
+  std::cout << i << "\n";
+}
+```
+
+### Pass by Pointer
+
+> This will pass in a copy of the address and change what is at the address
+
+```c++
+void tennify(int * a) { *a = 10; }
+// careful the pointer may be null
+// type casting may also fail
+int main()
+{
+  int i = 12;
+  tennify(&i);
+  std::cout << i << "\n";
+}
+```
+
+### Pass by Reference
+
+```c++
+void tennify(int & a) { a = 10; }
+// reference will always* be valid
+int main()
+{
+  int i = 12;
+  // c++ understands it is getting a reference so you only need to pass it
+  tennify(i);
+  std::cout << i << "\n";
+}
+```
+
+### Passing Large Data
+
+```c++
+// imagine this as a machine learning program
+// (const type & d) is passing the reference so it does not copy. This also prevents it from being changed
+void machineLearn(const BigData & d);
+
+int main()
+{
+  BigData data(args);
+  machineLearn(data);
+}
+```
+
+#### Pass by const reference
+
+- Whenever we pass a variable to a function that we don't want to be modified, use a `const reference`
+- `const` declares that the variable cannot be modified inside the called function
+- We only have to pass the 8-byte reference, which may be far less data than the data we are passing into the function
+
+#### Pass by reference `exceptions`
+
+- Pass primitive data types by **value**
+  - `int add(const int a, const int b);`
+- Referencing has an extra **dereference** step which is slower when using primitives
+- Pass `std::shared_ptr<T>` by value
+  - Copy constructor does counter inc/dec
+
+## C++ / RAII
+
+- Resource Acquisition is Initilization
+- Binds the life cycle of a resource that must be acuired before the use to the lifetime of an object
+- Makes life easier by iumplementing things in a wat the automatically manages memory/resources within an object
+
+### RAII Implementation
+
+- Encapsulate each resource into a class
+- The class constructor acquires the resource and initilized it accordingly
+- The destructor releases the resource
+- The class itself should be instantiated such that it has either automatic storage duration, or in another RAII object.
+
+#### Example
+
+Setting up the RAII class
+
+```c++
+class IntArray
+{
+  // private pointer
+  int * array;
+
+  public:
+    // constructor aquires the resource
+    IntArray(size_t size) { array = new int[size]; }
+    // deconstructor releases the resource
+    ~IntArray() { delete [] array; }
+    // get access to data with overloader
+    int & operator [] (size_t i) { return array[i]; }
+}
+```
+
+Using the above class
+
+```c++
+#include "IntArray.h"
+
+int main()
+{
+  IntArray arr(10); // memory is allocated
+  arr[5] = 21;
+} // arr destructs, mem deallocated
+```
+
+> This works because every variables that is in the stack is removed when the scope is left.
+> This is in practice setting up a garabe collector and is often faster than java's garbage collector
+
+## C++ Smart Pointer
+
+- Can be cumbersome to create our own RAII classes for every data type we want to store a pointer to
+- C++ contains different smart pointers
+- In this class: `std::shared_ptr<T>`
+  - This does what we did above with RAII
+- Handles RAII for a given pointer / type
+
+### Shared Pointer
+
+- `Reference Counted Pointer`
+- Internal counter set to 1 in constructor
+- Every time the shared_ptr is copied, the counter increases by 1
+- Every time the shared_ptr destructs, the counter is decreased by 1
+- When count reaches 0, resource deallocated
+
+## How to allocate / pass data?
+
+1. If possible, use the stack
+   - Small, local variables
+   - Pass variables by const reference if size > 8 bytes
+2. If you need heap memory, use smart ptr
+   - `std::shared_ptr<T> myBigData;`
+   - `std::shared_ptr<Base> = std::make_shared<Derived>();`
+3. Only when absolutely necesary use raw pointers / new
+
+## C++ Templates
+
+- Extremely powerful, easy to use
+- can be VERY complicated
+- can be used to implement generics
+  > See cpp files for example
