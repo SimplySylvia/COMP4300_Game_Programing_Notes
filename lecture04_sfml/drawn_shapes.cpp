@@ -3,10 +3,10 @@
 
 int main(int argc, char *argv[])
 {
-  // create a window of size 400 by 400
+  // create a window of size 800 by 800
   // top left is 0,0 and bottom right is (w,h)
-  const int wWidth = 400;
-  const int wHeight = 400;
+  const int wWidth = 800;
+  const int wHeight = 800;
   sf::RenderWindow window(sf::VideoMode(wWidth, wHeight), "SFML works!");
   window.setFramerateLimit(60);
 
@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
 
   sf::CircleShape shape(50);
   shape.setFillColor(sf::Color(r, g, b));
-  shape.setPosition(200.0f, 200.0f);
-  float shapeMoveSpeed = 0.01f;
+  shape.setPosition(500.0f, 500.0f);
+  float shapeMoveSpeed = 0.1f;
 
   // While windows is open. Draw shape.
   while (window.isOpen())
@@ -31,12 +31,16 @@ int main(int argc, char *argv[])
       {
         window.close();
       }
-
-      window.clear();
-      window.draw(shape);
-      window.display();
     }
+
+    // basic moving animation
+    shape.setPosition(shape.getPosition().x - shapeMoveSpeed, shape.getPosition().y - shapeMoveSpeed);
+
+    // basic render calls
+    window.clear();     // get rid of what was there
+    window.draw(shape); // draw to the screen something new
+    window.display();   // call window display function. This also swaps between buffers
   }
 
   return 0;
-}
+};
