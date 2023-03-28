@@ -117,6 +117,36 @@ int main()
   e.cName = std::make_shared<CName>("Red Box");
   e.cShape = std::make_shared<CShape>(args);
   entities.push_back(e);
-  doStuff(entities);
+  doStuff(entities); // generic system see below
+}
+```
+
+#### Using Entities
+
+```c++
+void doStuff(std::vector<Entity> & entities)
+{
+  for(auto & e : entities)
+  {
+    // dot notation to access props but -> for pointers
+    e.cTransform->pos += e.cTransform->velocity;
+    e.cShape->shape.setPosition(e.cTransform->pos);
+    window.draw(e.cShape->shape);
+  }
+}
+```
+
+#### System Example
+
+Here is an example of a movement system.
+
+```c++
+void sMovement(std::vector<Entity> & entities)
+{
+  for(auto & e : entities)
+  {
+    // dot notation to access props but -> for pointers
+    e.cTransform->pos += e.cTransform->velocity;
+  }
 }
 ```
